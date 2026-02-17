@@ -16,6 +16,7 @@ function App() {
 
   const [cachedTime, setCachedTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+  const [isReset, setIsReset] = useState(true);
 
   const [timerValue, setTimerValue] = useState(["00", "01", "00"]);
   const timerRef0 = useRef(null);
@@ -48,6 +49,7 @@ function App() {
     setInitialTimerLength(convertHMSToMiliseconds(timerValue));
     setTimerLength(convertHMSToMiliseconds(timerValue));
     setIsRunning(true);
+    setIsReset(false);
     console.log("Started");
   }
 
@@ -56,6 +58,7 @@ function App() {
     setTimerLength(convertHMSToMiliseconds(initialTimerValue));
     setCachedTime(0);
     setArcAngle(359.99);
+    setIsReset(true);
   }
 
   function resumeTimer() {
@@ -75,6 +78,7 @@ function App() {
     setTimerLength(convertHMSToMiliseconds(initialTimerValue));
     setArcAngle(359.99);
     console.log("Stopped");
+    setIsReset(true);
   }
 
   function handleStartPause() {
@@ -155,7 +159,7 @@ function App() {
       <ResetStop isRunning={isRunning} handleResetStop={handleResetStop}/>
       <br></br>
       <br></br>
-      <TimerInput2 refs={timerRefs} ref0={timerRef0} ref1={timerRef1} ref2={timerRef2} timerValue={timerValue} setTimerValue={setTimerValue} caret={caret} setCaret={setCaret}/>
+      <TimerInput2 refs={timerRefs} ref0={timerRef0} ref1={timerRef1} ref2={timerRef2} timerValue={timerValue} setTimerValue={setTimerValue} caret={caret} setCaret={setCaret} isReset={isReset}/>
     </>
   )
 }

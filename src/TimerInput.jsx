@@ -1,6 +1,6 @@
 import './TimerInput.css'
 
-const TimerInput = ({refs, timerValue, setTimerValue, caret, setCaret}) => {
+const TimerInput = ({refs, timerValue, setTimerValue, caret, setCaret, isReset}) => {
 
     /*
     e.target.value is the value of the current box
@@ -133,11 +133,11 @@ const TimerInput = ({refs, timerValue, setTimerValue, caret, setCaret}) => {
     return (
         <>
             <div className="no-space">
-                <input ref={refs[0]} id="0" type="text" value={timerValue[0]} onChange={handleChange} onSelect={handleSelect} onKeyUp={handleKeyboardKeys} onMouseUp={handleClick}/>
+                <input ref={refs[0]} id="0" type="text" value={timerValue[0]} onChange={handleChange} onSelect={handleSelect} onKeyUp={handleKeyboardKeys} onMouseUp={handleClick} readOnly={!isReset}/>
                 <p>H:</p>
-                <input ref={refs[1]} id="1" type="text" value={timerValue[1]} onChange={handleChange} onSelect={handleSelect} onKeyUp={handleKeyboardKeys} onMouseUp={handleClick}/>
+                <input ref={refs[1]} id="1" type="text" value={timerValue[1]} onChange={handleChange} onSelect={handleSelect} onKeyUp={handleKeyboardKeys} onMouseUp={handleClick} readOnly={!isReset}/>
                 <p>M:</p>
-                <input ref={refs[2]} id="2" type="text" value={timerValue[2]} onChange={handleChange} onSelect={handleSelect} onKeyUp={handleKeyboardKeys} onMouseUp={handleClick}/>
+                <input ref={refs[2]} id="2" type="text" value={timerValue[2]} onChange={handleChange} onSelect={handleSelect} onKeyUp={handleKeyboardKeys} onMouseUp={handleClick} readOnly={!isReset}/>
                 <p>S</p>
             </div>
         </>

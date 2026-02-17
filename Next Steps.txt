@@ -1,0 +1,1 @@
+For some reason when I put the digit in the [0,2] spot it gets sent to the [0,0] spot?!? Same happens in the [1,2] spot
