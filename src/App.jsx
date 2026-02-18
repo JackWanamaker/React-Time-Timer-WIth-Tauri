@@ -10,7 +10,7 @@ function App() {
   const [timerLength, setTimerLength] = useState(3600);
   const refreshTime = 5;
   const [secondsCounter, setSecondsCounter] = useState(0);
-  const startTime = useRef(Date.now());
+  const [start, setStart] = useState(true);
 
   const tempTimeStamp = useRef(Date.now());
 
@@ -50,6 +50,7 @@ function App() {
     setTimerLength(convertHMSToMiliseconds(timerValue));
     setIsRunning(true);
     setIsReset(false);
+    setStart(false);
     console.log("Started");
   }
 
@@ -59,6 +60,7 @@ function App() {
     setCachedTime(0);
     setArcAngle(359.99);
     setIsReset(true);
+    setStart(true);
   }
 
   function resumeTimer() {
@@ -79,11 +81,12 @@ function App() {
     setArcAngle(359.99);
     console.log("Stopped");
     setIsReset(true);
+    setStart(true);
   }
 
   function handleStartPause() {
     if (!isRunning) {
-      if (cachedTime == 0) {
+      if (start) {
         startTimer();
       }
       else {
