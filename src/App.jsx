@@ -150,6 +150,7 @@ function App() {
         console.log(timerValue);
         timerRefs[caret[0]].current.focus();
         timerRefs[caret[0]].current.selectionStart = caret[1];
+        timerRefs[caret[0]].current.selectionEnd = caret[1];
         setTimerLength(convertHMSToMiliseconds(timerValue));
     }
     }, [timerValue]);
