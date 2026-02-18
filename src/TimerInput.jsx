@@ -33,19 +33,25 @@ const TimerInput = ({refs, timerValue, setTimerValue, caret, setCaret, isReset})
     function threeNumHandler(e, boxIndex) {
         const isSecondPosition = e.target.selectionStart === 1;
         const isThirdPosition = e.target.selectionStart === 2;
+        const isFourthPosition = e.target.selectionStart === 3;
 
         const newTimerValue = timerValue.map((value, index) => {
-            if (index !== boxIndex) return value;
+            console.log("Printing Value: " + value);
+            console.log("Printing Index: " + index);
 
-            if (isSecondPosition) {
+            if (isSecondPosition && (index === boxIndex)) {
+                console.log("1")
                 setCaret([boxIndex, 1]);
                 return e.target.value[0] + e.target.value[2];
-            } else if (isThirdPosition) {
+            } else if (isThirdPosition && (index === boxIndex)) {
+                console.log("2")
                 setCaret(boxIndex !==2 ? [boxIndex + 1, 0] : [boxIndex, 2]);
                 return e.target.value[0] + e.target.value[1];
-            } else {
+            } else if (isFourthPosition && boxIndex+1 === index) {
                 setCaret([boxIndex + 1, 1]);
-                return e.target.value[2] + value[1];
+                return e.target.value[2] + value.slice(1);
+            } else {
+                return value;
             }
         });
 

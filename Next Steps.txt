@@ -1,3 +1,17 @@
 For some reason when I put the digit in the [0,2] spot it gets sent to the [0,0] spot?!? Same happens in the [1,2] spot
 
-Also, right now when a resume happens, it resets the circle to the current time left value.
+So right now it replaces the first value, so look for that case
+
+So it has something to do with line 48s return I think...
+
+So I think I need to change the values inside of the next input instead of the current one, but how?!?
+I could change the timerValue, but I think that would cause problems to be honest...
+
+if (boxIndex == 0) {
+                    setTimerValue([timerValue[0], e.target.value[2] + timerValue[1].slice(1), timerValue[2]]);
+                }
+                else {
+                    setTimerValue([timerValue[0], timerValue[1], e.target.value[2] + timerValue[2].slice(2)]);
+                }
+
+Also, right now when a resume happens, it resets the circle to the current time left value. Fixed!!!

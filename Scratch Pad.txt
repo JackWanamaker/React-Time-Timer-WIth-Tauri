@@ -1,0 +1,3 @@
+ console.log("3")
+                setCaret([boxIndex + 1, 1]);
+                return e.target.value[2] + value[1];
