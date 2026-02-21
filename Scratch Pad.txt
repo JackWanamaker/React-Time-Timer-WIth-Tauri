@@ -1,3 +1,10 @@
- console.log("3")
-                setCaret([boxIndex + 1, 1]);
-                return e.target.value[2] + value[1];
+else if (e.key === "ArrowRight") {
+            if (currentID < 2 && e.target.selectionStart === 2 && caret[1] == 2) {
+                refs[currentID+1].current.focus();
+                refs[currentID+1].current.selectionStart = 0;
+                refs[currentID+1].current.selectionEnd = 0;
+                setCaret([currentID+1, 0]);
+            } else {
+                setCaret([currentID, e.target.selectionStart]);
+            }
+        }

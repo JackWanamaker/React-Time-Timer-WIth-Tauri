@@ -152,6 +152,7 @@ function App() {
         timerRefs[caret[0]].current.selectionStart = caret[1];
         timerRefs[caret[0]].current.selectionEnd = caret[1];
         setTimerLength(convertHMSToMiliseconds(timerValue));
+        console.log("Any action?")
     }
     }, [timerValue]);
 

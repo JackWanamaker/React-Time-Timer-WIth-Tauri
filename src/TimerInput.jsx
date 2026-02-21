@@ -40,11 +40,9 @@ const TimerInput = ({refs, timerValue, setTimerValue, caret, setCaret, isReset})
             console.log("Printing Index: " + index);
 
             if (isSecondPosition && (index === boxIndex)) {
-                console.log("1")
                 setCaret([boxIndex, 1]);
                 return e.target.value[0] + e.target.value[2];
             } else if (isThirdPosition && (index === boxIndex)) {
-                console.log("2")
                 setCaret(boxIndex !==2 ? [boxIndex + 1, 0] : [boxIndex, 2]);
                 return e.target.value[0] + e.target.value[1];
             } else if (isFourthPosition && boxIndex+1 === index) {
@@ -66,7 +64,7 @@ const TimerInput = ({refs, timerValue, setTimerValue, caret, setCaret, isReset})
         //DENIALS
         
         //Denial of 2 character input (user selected a number and replaced it)
-        if (e.target.value.length !== 1 & e.target.value.length !== 3) {
+        if (e.target.value.length !== 1 && e.target.value.length !== 3) {
             return;
         }
 
@@ -107,20 +105,32 @@ const TimerInput = ({refs, timerValue, setTimerValue, caret, setCaret, isReset})
     function handleKeyboardKeys(e) {
         const currentID = parseInt(e.target.id);
         if (e.key === "ArrowLeft") {
+            e.preventDefault();
             if (currentID > 0 && e.target.selectionStart === 0 && caret[1] === 0) {
+                console.log("1")
+                setCaret([currentID-1, 2]);
                 refs[currentID-1].current.focus();
-                setCaret([currentID-1, 2])
-            } else {
-                setCaret([currentID, e.target.selectionStart]);
+                refs[currentID-1].current.selectionStart = 2;
+                refs[currentID-1].current.selectionEnd = 2;
+            } else if (!(currentID === 0 && e.target.selectionStart === 0)) {
+                console.log("2")
+                console.log("Selection Start: " + e.target.selectionStart);
+                console.log("Caret: " + caret[1]);
+                setCaret([currentID, e.target.selectionStart-1]);
+                refs[currentID].current.selectionStart = e.target.selectionStart-1;
+                refs[currentID].current.selectionEnd = e.target.selectionStart;
             }
         } else if (e.key === "ArrowRight") {
+            e.preventDefault();
             if (currentID < 2 && e.target.selectionStart === 2 && caret[1] == 2) {
+                setCaret([currentID+1, 0]);
                 refs[currentID+1].current.focus();
                 refs[currentID+1].current.selectionStart = 0;
                 refs[currentID+1].current.selectionEnd = 0;
-                setCaret([currentID+1, 0]);
-            } else {
-                setCaret([currentID, e.target.selectionStart]);
+            } else if (!(currentID === 2 && e.target.selectionStart === 2)) {
+                setCaret([currentID, e.target.selectionStart+1]);
+                refs[currentID].current.selectionStart = e.target.selectionStart+1;
+                refs[currentID].current.selectionEnd = e.target.selectionStart;
             }
         } else if (e.key === "Backspace") {
             if (currentID > 0 && e.target.selectionStart === 0 && caret[1] === 0) {
@@ -139,11 +149,11 @@ const TimerInput = ({refs, timerValue, setTimerValue, caret, setCaret, isReset})
     return (
         <>
             <div className="no-space">
-                <input ref={refs[0]} id="0" type="text" value={timerValue[0]} onChange={handleChange} onSelect={handleSelect} onKeyUp={handleKeyboardKeys} onMouseUp={handleClick} readOnly={!isReset}/>
+                <input ref={refs[0]} id="0" type="text" value={timerValue[0]} onChange={handleChange} onSelect={handleSelect} onKeyDown={handleKeyboardKeys} onMouseUp={handleClick} readOnly={!isReset}/>
                 <p>H:</p>
-                <input ref={refs[1]} id="1" type="text" value={timerValue[1]} onChange={handleChange} onSelect={handleSelect} onKeyUp={handleKeyboardKeys} onMouseUp={handleClick} readOnly={!isReset}/>
+                <input ref={refs[1]} id="1" type="text" value={timerValue[1]} onChange={handleChange} onSelect={handleSelect} onKeyDown={handleKeyboardKeys} onMouseUp={handleClick} readOnly={!isReset}/>
                 <p>M:</p>
-                <input ref={refs[2]} id="2" type="text" value={timerValue[2]} onChange={handleChange} onSelect={handleSelect} onKeyUp={handleKeyboardKeys} onMouseUp={handleClick} readOnly={!isReset}/>
+                <input ref={refs[2]} id="2" type="text" value={timerValue[2]} onChange={handleChange} onSelect={handleSelect} onKeyDown={handleKeyboardKeys} onMouseUp={handleClick} readOnly={!isReset}/>
                 <p>S</p>
             </div>
         </>
