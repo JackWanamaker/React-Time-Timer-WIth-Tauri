@@ -14,7 +14,6 @@ function App() {
 
   const tempTimeStamp = useRef(Date.now());
 
-  const [cachedTime, setCachedTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [isReset, setIsReset] = useState(true);
 
@@ -57,7 +56,6 @@ function App() {
   function resetTimer() {
     setTimerValue(initialTimerValue);
     setTimerLength(convertHMSToMiliseconds(initialTimerValue));
-    setCachedTime(0);
     setArcAngle(359.99);
     setIsReset(true);
     setStart(true);
@@ -85,7 +83,7 @@ function App() {
   }
 
   function handleStartPause() {
-    if (!isRunning) {
+    if (!isRunning && timerValue.join(":") !== "00:00:00") {
       if (start) {
         startTimer();
       }
@@ -104,6 +102,18 @@ function App() {
     }
     else {
       resetTimer();
+    }
+  }
+
+  function handleResetTime() {
+    if (!isRunning) {
+      setArcAngle(359.99);
+      setTimerValue(["00", "00", "00"])
+      setInitialTimerValue(["00","00","00"]);
+      setStart(true);
+      setIsReset(true);
+      setTimerLength(0);
+      setInitialTimerLength(0);
     }
   }
 
@@ -164,7 +174,7 @@ function App() {
       <ResetStop isRunning={isRunning} handleResetStop={handleResetStop}/>
       <br></br>
       <br></br>
-      <TimerInput2 refs={timerRefs} ref0={timerRef0} ref1={timerRef1} ref2={timerRef2} timerValue={timerValue} setTimerValue={setTimerValue} caret={caret} setCaret={setCaret} isReset={isReset}/>
+      <TimerInput2 refs={timerRefs} ref0={timerRef0} ref1={timerRef1} ref2={timerRef2} timerValue={timerValue} setTimerValue={setTimerValue} caret={caret} setCaret={setCaret} isReset={isReset} resetTime={handleResetTime}/>
     </>
   )
 }

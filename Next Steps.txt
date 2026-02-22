@@ -1,17 +1,11 @@
-For some reason when I put the digit in the [0,2] spot it gets sent to the [0,0] spot?!? Same happens in the [1,2] spot
+Okay, so now I want to implement a button that handles the resetting of the time to 0. 
 
-So right now it replaces the first value, so look for that case
+Ideally, I would like to change how the BackSpace works, because honestly it is unnecessary to handle it in handleChange if I can instead do it inside of the backspace handler! Which is very cool! But alas, it works right now, so I am going to leave it. It is a bit spaghetti though...
 
-So it has something to do with line 48s return I think...
+So I am going to need a new div. I use the same CSS file I did for the other stuff for the TimerInput. So TimerInput.css? No, App.css...
 
-So I think I need to change the values inside of the next input instead of the current one, but how?!?
-I could change the timerValue, but I think that would cause problems to be honest...
+I also really need to fix the fact that part of BackSpace doesn't work right :-( So maybe I
+should just do it...
 
-if (boxIndex == 0) {
-                    setTimerValue([timerValue[0], e.target.value[2] + timerValue[1].slice(1), timerValue[2]]);
-                }
-                else {
-                    setTimerValue([timerValue[0], timerValue[1], e.target.value[2] + timerValue[2].slice(2)]);
-                }
-
-Also, right now when a resume happens, it resets the circle to the current time left value. Fixed!!!
+Okay so my next steps are to figure out how to put the items in the div in the same line as one another... And also remove the
+button border for that specific item...

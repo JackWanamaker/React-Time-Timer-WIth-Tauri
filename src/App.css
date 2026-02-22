@@ -79,6 +79,19 @@ p {
   font-size: 1.2rem;
 }
 
+.reset-time {
+  background-color: rgba(0,0,0,0);
+  padding: 1px;
+  transform: translateY(1px);
+}
+
 .left {
   text-align: left;
+}
+
+.timer-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 }

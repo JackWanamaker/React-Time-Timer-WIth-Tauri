@@ -1,6 +1,7 @@
 import './TimerInput.css'
+import ResetTime from './ResetTime'
 
-const TimerInput = ({refs, timerValue, setTimerValue, caret, setCaret, isReset}) => {
+const TimerInput = ({refs, timerValue, setTimerValue, caret, setCaret, isReset, resetTime}) => {
 
     /*
     e.target.value is the value of the current box
@@ -138,16 +139,35 @@ const TimerInput = ({refs, timerValue, setTimerValue, caret, setCaret, isReset})
                 setCaret([currentID-1, 1]);
                 refs[currentID-1].current.selectionStart = 1;
                 refs[currentID-1].current.selectionEnd = 1;
-                setTimerValue(currentID === 0
+                setTimerValue(currentID === 1
                               ? [timerValue[0][0] + "0", timerValue[1], timerValue[2]]
                               : [timerValue[0], timerValue[1][0] + "0", timerValue[2]]
                 )
         }
-    }
+        } else if (e.key === "h" || e.key === "H") {
+            e.preventDefault();
+            setCaret([0,0])
+            refs[0].current.focus();
+            refs[0].current.selectionStart = 0;
+            refs[0].current.selectionEnd = 0;
+        } else if (e.key === "m" || e.key === "M") {
+            e.preventDefault();
+            setCaret([1,0])
+            refs[1].current.focus();
+            refs[1].current.selectionStart = 0;
+            refs[1].current.selectionEnd = 0;
+        } else if (e.key === "s" || e.key === "S") {
+            e.preventDefault();
+            setCaret([2,0])
+            refs[2].current.focus();
+            refs[2].current.selectionStart = 0;
+            refs[2].current.selectionEnd = 0;
+        }
 }
     
     return (
         <>
+            <div className="timer-input">
             <div className="no-space">
                 <input ref={refs[0]} id="0" type="text" value={timerValue[0]} onChange={handleChange} onSelect={handleSelect} onKeyDown={handleKeyboardKeys} onMouseUp={handleClick} readOnly={!isReset}/>
                 <p>H:</p>
@@ -155,6 +175,8 @@ const TimerInput = ({refs, timerValue, setTimerValue, caret, setCaret, isReset})
                 <p>M:</p>
                 <input ref={refs[2]} id="2" type="text" value={timerValue[2]} onChange={handleChange} onSelect={handleSelect} onKeyDown={handleKeyboardKeys} onMouseUp={handleClick} readOnly={!isReset}/>
                 <p>S</p>
+            </div>
+            <ResetTime resetTime={resetTime}/>
             </div>
         </>
     )
