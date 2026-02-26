@@ -4,6 +4,8 @@ import Arc from './Arc'
 import TimerInput2 from './TimerInput'
 import StartPause from './StartPause'
 import ResetStop from './ResetStop'
+import OnTopButton from './OnTopButton'
+import TransparencyButton from './TransparencyButton'
 
 function App() {
   const [arcAngle, setArcAngle] = useState(359.99);
@@ -166,8 +168,12 @@ function App() {
     }
     }, [timerValue]);
 
+    
+
   return (
     <>
+      <OnTopButton></OnTopButton>
+      <TransparencyButton></TransparencyButton>
       <Arc radius={80} startAngle={0} endAngle={arcAngle} stroke="black" strokeWidth={1.5} />
       <br></br>
       <StartPause isRunning={isRunning} handleStartPause={handleStartPause}/>

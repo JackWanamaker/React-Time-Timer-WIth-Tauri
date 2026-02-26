@@ -15,8 +15,7 @@
         "title": "time-timer",
         "width": 400,
         "height": 400,
-        "transparent": true,
-        "alwaysOnTop": true
+        "transparent": true
       }
     ],
     "security": {
