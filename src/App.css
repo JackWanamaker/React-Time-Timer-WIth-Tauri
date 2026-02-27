@@ -95,3 +95,16 @@ p {
   align-items: center;
   gap: 5px;
 }
+
+.top-buttons {
+  display: inline;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background-color: rgba(0,0,0,0);
+}
+
+.settings-button {
+  background-color: rgba(0,0,0,0);
+  padding: 1px;
+}

@@ -1,19 +1,51 @@
 import { getCurrentWindow } from '@tauri-apps/api/window';
 
-const OnTopButton = ({}) => {
-    async function returnWindowState() {
-        return await getCurrentWindow().isAlwaysOnTop();
-    }
+async function returnWindowState() {
+    return await getCurrentWindow().isAlwaysOnTop();
+}
 
-    async function switchWindowState() {
-        await getCurrentWindow().setAlwaysOnTop(!(await returnWindowState()));
-    }
-
+function returnNormal() {
     return (
-        <button onClick={switchWindowState}>
-            <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M3 12H20C20.5523 12 21 11.5523 21 11V4C21 3.44772 20.5523 3 20 3H11C10.4477 3 10 3.44772 10 4V9M21 6H10M4 9H16C16.5523 9 17 9.44772 17 10V19C17 19.5523 16.5523 20 16 20H4C3.44772 20 3 19.5523 3 19V10C3 9.44771 3.44772 9 4 9Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg width="30px" height="30px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g id="ic_fluent_tabs_24_filled" fill="#ffffff" stroke="#000000" strokeWidth="0.75px"  fill-rule="nonzero">
+                <path d="M18.75,7.99874576 C20.4830315,7.99874576 21.8992459,9.35520052 21.9948552,11.0643219 L22,11.2487458 L22,18.7487458 C22,20.4817772 20.6435452,21.8979917 18.9344239,21.993601 L18.75,21.9987458 L11.25,21.9987458 C9.51696854,21.9987458 8.10075407,20.642291 8.00514479,18.9331697 L8,18.7487458 L8,11.2487458 C8,9.5157143 9.35645477,8.09949983 11.0655761,8.00389055 L11.25,7.99874576 L18.75,7.99874576 Z M15.75,5 C17.101223,5 18.2598489,5.82460594 18.7501004,6.99804043 L11.25,6.99874576 C8.90278981,6.99874576 7,8.90153557 7,11.2487458 L7.0000564,18.7509418 C5.87931902,18.283597 5.07631822,17.2067274 5.00514479,15.9344239 L5,15.75 L5,8.25 C5,6.51696854 6.35645477,5.10075407 8.06557609,5.00514479 L8.25,5 L15.75,5 Z M12.75,2 C14.0497736,2 15.1713376,2.76300581 15.691219,3.86554427 L15.75,4 L8.25,4 L8.0376904,4.00553367 C5.76476192,4.13229028 4,5.99244877 4,8.25 L4.0000564,15.7509418 C2.87931902,15.283597 2.07631822,14.2067274 2.00514479,12.9344239 L2,12.75 L2,5.25 C2,3.51696854 3.35645477,2.10075407 5.06557609,2.00514479 L5.25,2 L12.75,2 Z" id="🎨-Color">
+                </path>
+                </g>
             </svg>
+    )
+}
+
+function returnCrossedOut() {
+    return (
+        <svg width="30px" height="30px" version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <g id="ic_fluent_tabs_24_filled" fill="#fff" stroke="#000" strokeWidth="0.75px">
+  <path id="🎨-Color" d="m18.75 7.9987c1.733 0 3.1492 1.3565 3.2449 3.0656l0.0051448 0.18442v7.5c0 1.733-1.3565 3.1492-3.0656 3.2449l-0.18442 0.0051448h-7.5c-1.733 0-3.1492-1.3565-3.2449-3.0656l-0.0051448-0.18442v-7.5c0-1.733 1.3565-3.1492 3.0656-3.2449l0.18442-0.0051448h7.5zm-3-2.9987c1.3512 0 2.5098 0.82461 3.0001 1.998l-7.5001 7.0533e-4c-2.3472 0-4.25 1.9028-4.25 4.25l5.64e-5 7.5022c-1.1207-0.46734-1.9237-1.5442-1.9949-2.8165l-0.0051448-0.18442v-7.5c0-1.733 1.3565-3.1492 3.0656-3.2449l0.18442-0.0051448h7.5zm-3-3c1.2998 0 2.4213 0.76301 2.9412 1.8655l0.058781 0.13446h-7.5l-0.21231 0.0055337c-2.2729 0.12676-4.0377 1.9869-4.0377 4.2445l5.64e-5 7.5009c-1.1207-0.46734-1.9237-1.5442-1.9949-2.8165l-0.0051448-0.18442v-7.5c0-1.733 1.3565-3.1492 3.0656-3.2449l0.18442-0.0051448h7.5z"/>
+ </g>
+ <path transform="scale(1.3739 .72784)" d="m0.25851 0.49534h4.3406l12.611 31.984h-4.3406z" fill="#fff" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".62404" aria-label="\"/>
+</svg>
+    )
+}
+
+function handleSymbol(isOnTop) {
+    if (isOnTop) {
+        return returnNormal();
+    }
+    else {
+        return returnCrossedOut();
+    }
+}
+
+const OnTopButton = ({isOnTop, setIsOnTop}) => {
+
+async function switchWindowState() {
+    const currentState = await returnWindowState();
+    await getCurrentWindow().setAlwaysOnTop(!currentState);
+    setIsOnTop(!currentState);
+}
+    
+    return (
+        <button onClick={switchWindowState} className="settings-button">
+            {handleSymbol(isOnTop)}
         </button>
     )
 }

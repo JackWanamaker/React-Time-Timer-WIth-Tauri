@@ -27,6 +27,8 @@ function App() {
   const [initialTimerValue, setInitialTimerValue] = useState(["00", "00", "00"]);
   const [initialTimerLength, setInitialTimerLength] = useState(0);
   const [caret, setCaret] = useState([0, 1]);
+  const [isTransparent, setIsTransparent] = useState(false);
+  const [isOnTop, setIsOnTop] = useState(false);
   
   function convertHMSToMiliseconds(timerValue) {
     return ((parseInt(timerValue[0])*3600) + (parseInt(timerValue[1])*60) + (parseInt(timerValue[2])))*1000;
@@ -172,8 +174,10 @@ function App() {
 
   return (
     <>
-      <OnTopButton></OnTopButton>
-      <TransparencyButton></TransparencyButton>
+      <div className="top-buttons">
+        <OnTopButton isOnTop={isOnTop} setIsOnTop={setIsOnTop}/>
+        <TransparencyButton isTransparent={isTransparent} setIsTransparent={setIsTransparent}/>
+      </div>
       <Arc radius={80} startAngle={0} endAngle={arcAngle} stroke="black" strokeWidth={1.5} />
       <br></br>
       <StartPause isRunning={isRunning} handleStartPause={handleStartPause}/>
