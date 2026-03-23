@@ -1,3 +1,18 @@
-My next steps have to do with CSS work... I want to make it so the buttons are in the top left of the page...
+So I am stuck thinking about the timer entry... I feel like my current setup DOES reduce a lot of the friction that comes from
+a lot of desktop timers... That much is true... But I think it creates some friction as well to be honest...
 
-You should review the different ways to place items in CSS... Perhaps you can do one relative to the top left corner of the page, or some kind of absolute position could work as well? 
+I like that the whole thing now feels continuous, like one connected piece... That took a lot of work to do, and I truly think
+it was worthwhile... However, defaulting to 1 minute seems stupid to be honest... I don't think there is a single good default
+time at least that I know of... I think I really need some preset times... Like some times you can just click, and you can jump
+right in... I think the default should be 0, and the caret should be placed over the second place hour digit...
+
+Wouldn't it just be better to use the system everyone else does, where you just type in the time, and it autofills? I guess it
+seemed important for me to edit the time easily? Have it seem more logical and readable?
+
+I think my main concern is people not wanting to get used to the new format, even though I think it is better... Some people
+will want the old system regardless... Maybe I build an option to allow the user to enter the time using the more traditional
+method of input...
+
+It is so hard to say to be honest... I think they are both pretty good... I think the traditional way Google does it is a bit
+messy looking, it makes less intuitive sense to edit... One feels like building and the other feels like completing a sentence...
+

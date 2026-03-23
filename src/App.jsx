@@ -118,6 +118,7 @@ function App() {
       setIsReset(true);
       setTimerLength(0);
       setInitialTimerLength(0);
+      setCaret([0,1]);
     }
   }
 
