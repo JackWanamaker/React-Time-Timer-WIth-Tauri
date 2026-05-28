@@ -1,3 +1,5 @@
+import { useState, useEffect, useRef } from 'react'
+
 function polarToCartesian(cx, cy, r, angleDeg) {
     const angleRad = (angleDeg - 90) * (Math.PI / 180);
     return {
@@ -21,31 +23,29 @@ function polarToCartesian(cx, cy, r, angleDeg) {
     return returnValue;
   }
 
-  const Arc = ({ radius = 80, startAngle = 0, endAngle = 270, cx = 100, cy = 100, strokeWidth = 4, timerBeep = false}) => {
-    const pathData = generateArc(cx, cy, radius, startAngle, endAngle);
-    const stroke = useRef("black");
+  const Arc = ({ radius = 80, startAngle = 0, endAngle = 270, cx = 100, cy = 100, strokeWidth = 4, timerDone = false}) => {
+    let pathData = generateArc(cx, cy, radius, startAngle, endAngle);
+    const [fill, setFill] = useState("#0000FFA0");
 
     useEffect(() => {
-      if (timerBeep) {
+      if (timerDone) {
+        pathData = generateArc(cx, cy, radius, startAngle, 270);
         const colorSwap = setInterval(() => {
-          if (stroke.current === "black") {
-            stroke.current = "red";
-          }
-          else {
-            stroke.current = "black"
-          }
-
+          setFill(prev => prev === "#0000FFA0" ? "red" : "#0000FFA0");
         }, 500);
-        return () => clearInterval(timerBeep);
+        return () => clearInterval(colorSwap);
       }
-    },[timerBeep])
+      else {
+        setFill("#0000FFA0");
+      }
+    },[timerDone])
 
     return (
       <svg width={cx*2} height={cy*2} xmlns="http://www.w3.org/2000/svg">
           <path
         d={pathData}
-        fill={"#0000FFA0"}
-        stroke={stroke.current}
+        fill={fill}
+        stroke="black"
         strokeWidth={strokeWidth} />
       </svg>
     )

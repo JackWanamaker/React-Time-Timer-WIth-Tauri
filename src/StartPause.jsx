@@ -1,4 +1,4 @@
-const StartPause = ({isRunning = false, handleStartPause}) => {
+const StartPause = ({isRunning = false, timerDone, handleStartPause}) => {
 
     let pathData = "";
 
@@ -10,11 +10,13 @@ const StartPause = ({isRunning = false, handleStartPause}) => {
     }
     
     return (
+        !timerDone ?
         <button onClick={handleStartPause}>
         <svg width="25px" height="25px" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d={pathData} fill="#ffffff"/>
         </svg>
         </button>
+        : null
     )
 }
 

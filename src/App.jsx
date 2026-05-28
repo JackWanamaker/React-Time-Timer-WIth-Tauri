@@ -10,7 +10,7 @@ import TransparencyButton from './TransparencyButton'
 function App() {
   const [arcAngle, setArcAngle] = useState(359.99);
   const [timerLength, setTimerLength] = useState(3600);
-  const [timerBeep, setTimerBeep] = useState(false);
+  const [timerDone, setTimerDone] = useState(false);
   const refreshTime = 5;
   const [secondsCounter, setSecondsCounter] = useState(0);
   const [start, setStart] = useState(true);
@@ -30,6 +30,8 @@ function App() {
   const [caret, setCaret] = useState([0, 1]);
   const [isTransparent, setIsTransparent] = useState(false);
   const [isOnTop, setIsOnTop] = useState(false);
+  
+  const audioRef = useRef(null);
   
   function convertHMSToMiliseconds(timerValue) {
     return ((parseInt(timerValue[0])*3600) + (parseInt(timerValue[1])*60) + (parseInt(timerValue[2])))*1000;
@@ -64,7 +66,6 @@ function App() {
     setArcAngle(359.99);
     setIsReset(true);
     setStart(true);
-    setTimerBeep(false);
   }
 
   function resumeTimer() {
@@ -76,6 +77,7 @@ function App() {
   function pauseTimer() {
     setIsRunning(false);
     console.log("Paused");
+    setTimerDone(false);
   }
 
   function stopTimer() {
@@ -86,12 +88,15 @@ function App() {
     console.log("Stopped");
     setIsReset(true);
     setStart(true);
-    setTimerBeep(false);
+    setTimerDone(false);
+    audioRef.current.pause()
+    audioRef.current.currentTime = 0
   }
 
   function timerEnd() {
-    setIsRunning(false);
-    setTimerBeep(true);
+    setArcAngle(359.99);
+    setTimerDone(true);
+    audioRef.current?.play();
   }
 
   function handleStartPause() {
@@ -183,13 +188,14 @@ function App() {
 
   return (
     <>
+      <audio ref={audioRef} src="/sounds/alarm_done.mp3" />
       <div className="top-buttons">
         <OnTopButton isOnTop={isOnTop} setIsOnTop={setIsOnTop}/>
         <TransparencyButton isTransparent={isTransparent} setIsTransparent={setIsTransparent}/>
       </div>
-      <Arc radius={80} startAngle={0} endAngle={arcAngle} strokeWidth={1.5} timerBeep={timerBeep} />
+      <Arc radius={80} startAngle={0} endAngle={arcAngle} strokeWidth={1.5} timerDone={timerDone} />
       <br></br>
-      <StartPause isRunning={isRunning} handleStartPause={handleStartPause}/>
+      <StartPause isRunning={isRunning} timerDone={timerDone} handleStartPause={handleStartPause}/>
       <ResetStop isRunning={isRunning} handleResetStop={handleResetStop}/>
       <br></br>
       <br></br>
