@@ -10,6 +10,7 @@ import TransparencyButton from './TransparencyButton'
 function App() {
   const [arcAngle, setArcAngle] = useState(359.99);
   const [timerLength, setTimerLength] = useState(3600);
+  const [timerBeep, setTimerBeep] = useState(false);
   const refreshTime = 5;
   const [secondsCounter, setSecondsCounter] = useState(0);
   const [start, setStart] = useState(true);
@@ -63,6 +64,7 @@ function App() {
     setArcAngle(359.99);
     setIsReset(true);
     setStart(true);
+    setTimerBeep(false);
   }
 
   function resumeTimer() {
@@ -84,6 +86,12 @@ function App() {
     console.log("Stopped");
     setIsReset(true);
     setStart(true);
+    setTimerBeep(false);
+  }
+
+  function timerEnd() {
+    setIsRunning(false);
+    setTimerBeep(true);
   }
 
   function handleStartPause() {
@@ -126,7 +134,7 @@ function App() {
     if (isRunning) {
       if (timerLength <= 0) {
         console.log("Timer Finished");
-        stopTimer();
+        timerEnd();
         return; // stop when 0
       }
       
@@ -179,7 +187,7 @@ function App() {
         <OnTopButton isOnTop={isOnTop} setIsOnTop={setIsOnTop}/>
         <TransparencyButton isTransparent={isTransparent} setIsTransparent={setIsTransparent}/>
       </div>
-      <Arc radius={80} startAngle={0} endAngle={arcAngle} stroke="black" strokeWidth={1.5} />
+      <Arc radius={80} startAngle={0} endAngle={arcAngle} strokeWidth={1.5} timerBeep={timerBeep} />
       <br></br>
       <StartPause isRunning={isRunning} handleStartPause={handleStartPause}/>
       <ResetStop isRunning={isRunning} handleResetStop={handleResetStop}/>
