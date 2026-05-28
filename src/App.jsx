@@ -6,6 +6,7 @@ import StartPause from './StartPause'
 import ResetStop from './ResetStop'
 import OnTopButton from './OnTopButton'
 import TransparencyButton from './TransparencyButton'
+import IgnoreCursorButton from './IgnoreCursorButton';
 
 function App() {
   const [arcAngle, setArcAngle] = useState(359.99);
@@ -28,8 +29,10 @@ function App() {
   const [initialTimerValue, setInitialTimerValue] = useState(["00", "00", "00"]);
   const [initialTimerLength, setInitialTimerLength] = useState(0);
   const [caret, setCaret] = useState([0, 1]);
+  
   const [isTransparent, setIsTransparent] = useState(false);
   const [isOnTop, setIsOnTop] = useState(false);
+  const [ignoreCursor, setIgnoreCursor] = useState(false);
   
   const audioRef = useRef(null);
   
@@ -89,8 +92,8 @@ function App() {
     setIsReset(true);
     setStart(true);
     setTimerDone(false);
-    audioRef.current.pause()
-    audioRef.current.currentTime = 0
+    audioRef.current.pause();
+    audioRef.current.currentTime = 0;
   }
 
   function timerEnd() {
@@ -133,7 +136,7 @@ function App() {
       setInitialTimerLength(0);
       setCaret([0,1]);
     }
-  }
+  } 
 
   useEffect(() => {
     if (isRunning) {
@@ -188,10 +191,11 @@ function App() {
 
   return (
     <>
-      <audio ref={audioRef} src="/sounds/alarm_done.mp3" />
+      <audio ref={audioRef} src="/sounds/alarm_done.mp3" loop />
       <div className="top-buttons">
         <OnTopButton isOnTop={isOnTop} setIsOnTop={setIsOnTop}/>
         <TransparencyButton isTransparent={isTransparent} setIsTransparent={setIsTransparent}/>
+        <IgnoreCursorButton ignoreCursor={ignoreCursor} setIgnoreCursor={setIgnoreCursor}/>
       </div>
       <Arc radius={80} startAngle={0} endAngle={arcAngle} strokeWidth={1.5} timerDone={timerDone} />
       <br></br>
